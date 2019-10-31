@@ -1,5 +1,5 @@
-### Thioro and Zack are starting the file to analyse the cover crop data.
-### This script requires set working directory to source file location.
+### This script analyses  winter 2019 cover crop biomass.
+### Remainder: Set working directory to source file location.
 
 library(tidyverse)
 library(agricolae)
@@ -243,7 +243,7 @@ for(s in species){
     left_join(treatments, by = c("CropTrt" = "treatments")) %>% 
     mutate(CropTrt = factor(CropTrt, levels = str_subset(treatments$treatments, s)))
 
-  ggplot(data_for_figure, aes(x=factor(CropTrt), y=avg_stem_mass)) +
+  ggplot(data_for_figure, aes(x=CropTrt, y=avg_stem_mass)) +
     geom_bar(stat="identity", aes(fill=CropTrt)) +
     geom_errorbar(aes(ymin = avg_stem_mass-ci_stem_mass, ymax = avg_stem_mass+ci_stem_mass), width=0.2) +
     facet_grid(.~Location) +
